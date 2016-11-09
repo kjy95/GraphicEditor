@@ -37,6 +37,7 @@ abstract public class GShape {
 		}
 		return null;
 	}
+	
 	public boolean contnains(int x, int y) {		
 		return shape.contains(x, y);
 	}

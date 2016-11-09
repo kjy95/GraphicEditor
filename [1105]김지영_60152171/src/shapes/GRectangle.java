@@ -8,20 +8,22 @@ import constants.GConstants.EDrawingType;
 public class GRectangle extends GShape {
 	private Rectangle rectangle;
 	public GRectangle() {
-		super(EDrawingType.TP);
-		this.rectangle = new Rectangle(0, 0, 0, 0);
-		this.shape = this.rectangle;
-
+		super(EDrawingType.TP); 
+		this.shape = new Rectangle(0, 0, 0, 0);
 	}
 	@Override
 	public void initDrawing(int x, int y, Graphics2D g2D) {
-		this.rectangle.setLocation(x, y);
+//		this.rectangle.setLocation(x, y);
+		Rectangle rectangle = (Rectangle) this.shape;
+		rectangle.setLocation(x, y);
+//		rectangle.setSize(0, 0);
 	}
 	@Override
 	public void keepDrawing(int x, int y, Graphics2D g2D) {
+		Rectangle rectangle = (Rectangle) this.shape;
 		this.draw(g2D);
-		this.rectangle.width = x - this.rectangle.x;
-		this.rectangle.height = y - this.rectangle.y;
+		rectangle.width = x -rectangle.x;
+		rectangle.height = y - rectangle.y;
 		this.draw(g2D);
 	}
 	public void continueDrawing(int x, int y, Graphics2D g2D) {
@@ -31,7 +33,12 @@ public class GRectangle extends GShape {
 	}
 	@Override
 	public void draw(Graphics2D g2D) {
-		g2D.draw(this.rectangle);
-		this.getAnchors().draw(g2D, this.rectangle.getBounds());
+		Rectangle rectangle = (Rectangle) this.shape;
+		g2D.draw(rectangle);
+		this.getAnchors().draw(g2D,rectangle.getBounds());
+	}
+	public GShape cloneShape() {
+		// TODO Auto-generated method stub
+		return new GRectangle();
 	}
 }

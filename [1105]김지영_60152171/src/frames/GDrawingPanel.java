@@ -1,4 +1,5 @@
 package frames;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -20,6 +21,7 @@ public class GDrawingPanel extends JPanel {
 	private Vector<GShape> shapeVector;	
 	// associative attributes
 	private GShape selectedShape;
+	private cursor cursor;
 	public void setSelectedShape(GShape selectedShape) {
 		this.selectedShape = selectedShape;
 		switch (this.selectedShape.geteDrawingType()) {
@@ -47,6 +49,8 @@ public class GDrawingPanel extends JPanel {
 	}
 	
 	private void initDrawing(int x, int y) {
+
+		GShape currentShape = changePointShape(x, y);
 		this.currentShape= this.selectedShape.clone();
 		Graphics2D g2D = (Graphics2D)this.getGraphics();
 		g2D.setXORMode(this.getBackground());
@@ -68,14 +72,15 @@ public class GDrawingPanel extends JPanel {
 		this.currentShape.finishDrawing(x, y, g2D);
 		this.shapeVector.add(this.currentShape);
 	}
-	private void changePointShape(int x, int y) {
+	public GShape changePointShape(int x, int y) {
 		for (GShape shape: this.shapeVector) {
 			if (shape.contnains(x, y)) {
-				
+				this.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 			} else {
-				
+				this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			}
 		}
+		return null;
 	}
 	class MouseEventHandler 
 		implements MouseInputListener, MouseMotionListener {
@@ -118,10 +123,10 @@ public class GDrawingPanel extends JPanel {
 		@Override
 		public void mouseMoved(MouseEvent e) {
 			if (eState == EState.drawingNP) {
+				
 				keepDrawing(e.getX(), e.getY());
 			} else if (eState == EState.idleTP || eState == EState.idleNP) {
-				changePointShape(e.getX(), e.getY());
-			}
+				changePointShape(e.getX(), e.getY());			}
 		}		
 		@Override
 		public void mouseDragged(MouseEvent e) {
@@ -130,11 +135,9 @@ public class GDrawingPanel extends JPanel {
 			}
 		}
 		@Override
-		public void mouseEntered(MouseEvent arg0) {
-		}
+		public void mouseEntered(MouseEvent e) {changePointShape(e.getX(), e.getY());}
 		@Override
-		public void mouseExited(MouseEvent arg0) {
-		}
+		public void mouseExited(MouseEvent e) {}
 	}
 
 }

@@ -1,6 +1,7 @@
 package constants;
 
 import shapes.GShape;
+import shapes.GEllipse;
 import shapes.GLine;
 import shapes.GPolygon;
 import shapes.GRectangle;
@@ -21,11 +22,11 @@ public class GConstants {
 	}
 	public static enum EFileMenuItem {
 		nnew("new"), 
-		open("열기"), 
+		open("�뿴湲�"), 
 		close("close"), 
 		save("save"), 
 		saveAs("saveAs"),
-		print("프린트"),
+		print("�봽由고듃"),
 		exit("exit");
 		private String text;
 		private EFileMenuItem(String text) {
@@ -53,7 +54,7 @@ public class GConstants {
 	}
 	public static enum EToolBarButton {
 		rectangle("rsc/rectangle.gif", "rsc/rectangleSLT.gif", new GRectangle()),
-		ellipse("rsc/ellipse.gif", "rsc/ellipseSLT.gif", new GRectangle()),
+		ellipse("rsc/ellipse.gif", "rsc/ellipseSLT.gif", new GEllipse()),
 		line("rsc/line.gif", "rsc/lineSLT.gif", new GLine()),
 		polygon("rsc/polygon.gif", "rsc/polygonSLT.gif", new GPolygon());
 		
